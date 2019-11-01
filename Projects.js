@@ -6,8 +6,32 @@ const router = express.Router();
 
 //requests
 
+//adds a project
 router.post('/', validateProject, (req,res) => {
-    const 
+    const body = req.body;
+    pM
+        .insert(body)
+        .then(project => {
+            res.status(201).json({ message: `${project.body.name} successfully added` })
+        })
+        .catch(err => {
+            res.status(500).json({ errorMessage: 'could not add project' })
+        })
+})
+
+//adds an action to a project
+router.post('/:id/actions', validateProjectId, validateAction, (req, res) =>{
+    const body = req.body;
+    body.project_id = req.params.id;
+
+    aM
+        .insert(body)
+        .then(project => {
+            res.status(201).json({ message: `${body.name} added to ${project}` })
+        })
+        .catch(err => {
+            res.status(500).json({ errorMessage: 'could not add the action'})
+        })
 })
 
 //custom middleware
