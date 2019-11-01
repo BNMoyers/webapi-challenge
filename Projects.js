@@ -34,6 +34,50 @@ router.post('/:id/actions', validateProjectId, validateAction, (req, res) =>{
         })
 })
 
+//fetch all projects
+router.get('/', (req, res) = {
+    pM
+        .get()
+        .then(projects => {
+            res.status(200).json(projects)
+        })
+        .catch(err => {
+            res.status(500).json({ errorMessage: 'could not get projects' })
+        })
+}
+)
+
+//fetch project by id
+router.get('/:id', validateProjectId, (req, res) =>{
+    res.status(201).json(req.project)
+})
+
+//fetch all actions of a specific project
+router.get('/:id/actions', validateProjectId, (req, res) => {
+    pM.getProjectActions(req.params.id);
+    then(actions => {
+        res.status(200).json(actions)
+    })
+    .catch(err => {
+        res.status(500).json({ errorMessage: 'could not get actions' })
+    })
+})
+
+//update a project
+router.put('/:id', validateProject, validateProjectId, (req, res) =>{
+    pM.update(req.params.id, req.body)
+        .then(() => {
+            pM
+                .get(req.params.id)
+                .then(project => {
+                    res.status(200).json(project)
+                })
+        })
+        .catch(err => {
+            res.status(500).json({ errorMessage: 'could not update project' })
+        })
+})
+
 //custom middleware
 
 //validate the id of the project
