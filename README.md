@@ -24,15 +24,31 @@ In this challenge, create a web API around the following resources: `Projects` a
 
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your Team Lead.
 
-- [ ] Mention two parts of Express that you learned about this week.
+- [x] Mention two parts of Express that you learned about this week.
 
-- [ ] Describe Middleware?
+    -- express is a framework for Node which provides additional functionality; it fills a similar role to React, but for the backend. 
+  
+    -- express can use modules written for connect.
 
-- [ ] Describe a Resource?
+- [x] Describe Middleware?
 
-- [ ] What can the API return to help clients know if a request was successful?
+    "Everything is middleware."
+  
+    -- middleware is code (often functions) that interrupt the flow of data; they take in our data, do something with/to it, and then either pass it along to the next part of the application, or stop the flow altogether. 
 
-- [ ] How can we partition our application into sub-applications?
+- [x] Describe a Resource?
+
+    "Everything is a resource!"
+ 
+    -- in RESTful APIs, a resource is the data available at a unique URL that is managed by HTTP methods. 
+
+- [x] What can the API return to help clients know if a request was successful?
+
+    -- we communicate with clients by returning a status code. For successful resquests, the status code used will be in the 200s. 
+
+- [x] How can we partition our application into sub-applications?
+
+    -- we can partition our application using components and routes, just like the front end. 
 
 ## Project Setup
 
