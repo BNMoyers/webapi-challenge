@@ -7,6 +7,8 @@ const router = express.Router();
 //requests
 
 //custom middleware
+
+//validate the id of the project
 function validateProjectId(req,res, next) {
     const id = req.params.id;
     pM
@@ -22,6 +24,20 @@ function validateProjectId(req,res, next) {
         })
 
 }
+
+//validate that the project has all required parts
+function ValidateProject(req, res, next) {
+    const name = req.name;
+    const description = req.description;
+
+    !name 
+        ? res.status(400).json({ errorMessage: 'a project name is required' })
+        : !description
+            ? res.status(400).json({ errorMessage: 'description required' })
+            : next();
+        }
+
+        
 
 //export
 module.exports = router
