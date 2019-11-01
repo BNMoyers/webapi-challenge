@@ -4,6 +4,32 @@ const aM = require("./data/helpers/actionModel");
 
 //requests
 
+//delete an action
+router.delete('/:id', validateActionId, (req, res) =>{
+    const id = req.params.id;
+    aM.remove(id)
+        .then(() => {
+            res.status(200).json({ message: `removed action ${id}` })
+        })
+        .catch(err => {
+            res.status(500).json({ errorMessage: `${err}` })
+        })
+})
+
+//update an action
+router.put('/:id', validateActionId, (req, res) => {
+    aM.update(req.params.id, req.body)
+        .then(() => {
+            aM.get(req.params.id)
+                .then(action => {
+                    res.status(200).json({ message: `successfully updated ${action}` })
+                })
+        })
+        .catch(err => {
+            res.status(500).json({ errorMessage: {err} })
+        })
+})
+
 
 //custom middleware
 
