@@ -1,6 +1,7 @@
 //dependencies and imports
 const express = require("express");
 const aM = require("./data/helpers/actionModel");
+const router = express.Router();
 
 //requests
 

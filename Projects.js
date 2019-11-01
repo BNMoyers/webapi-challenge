@@ -35,7 +35,7 @@ router.post('/:id/actions', validateProjectId, validateAction, (req, res) =>{
 })
 
 //fetch all projects
-router.get('/', (req, res) = {
+router.get('/', (req, res) => {
     pM
         .get()
         .then(projects => {
