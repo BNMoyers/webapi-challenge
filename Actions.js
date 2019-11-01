@@ -5,15 +5,33 @@ const router = express.Router();
 
 //requests
 
+//fetch all actions
+router.get('/', (req, res) => {
+    aM
+        .get()
+        .then(actions => {
+            res.status(200).json(actions)
+        })
+        .catch(err => {
+            res.status(500).json({ errorMessage: 'could not get actions' })
+        })
+}
+)
+
+//fetch action by id
+router.get('/:id', validateActionId, (req, res) =>{
+    res.status(201).json(req.action)
+})
+
 //delete an action
 router.delete('/:id', validateActionId, (req, res) =>{
     const id = req.params.id;
     aM.remove(id)
         .then(() => {
-            res.status(200).json({ message: `removed action ${id}` })
+            res.status(200).json({ message: 'removed action' })
         })
         .catch(err => {
-            res.status(500).json({ errorMessage: `${err}` })
+            res.status(500).json({ errorMessage: {err} })
         })
 })
 
@@ -21,13 +39,13 @@ router.delete('/:id', validateActionId, (req, res) =>{
 router.put('/:id', validateActionId, (req, res) => {
     aM.update(req.params.id, req.body)
         .then(() => {
-            aM.get(req.params.id)
+            aM.get(id)
                 .then(action => {
-                    res.status(200).json({ message: `successfully updated ${action}` })
+                    res.status(200).json('successfully updated action')
                 })
         })
         .catch(err => {
-            res.status(500).json({ errorMessage: {err} })
+            res.status(500).json(err)
         })
 })
 
@@ -38,14 +56,14 @@ router.put('/:id', validateActionId, (req, res) => {
 function validateActionId(req, res, next) {
     const id = req.params.id;
     aM.get(id)
-        .then(actions => {
-            !actions
+        .then(action => {
+            !action
                 ? res.status(404).json({ errorMessage: 'invalid id' })
-                : (req.actions = actions);
+                : (req.action = action);
                 next();
         })
         .catch(err => {
-            res.status(400).json({ errorMessage: {error} })
+            res.status(400).json(err)
         })
 }
 

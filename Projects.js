@@ -12,10 +12,11 @@ router.post('/', validateProject, (req,res) => {
     pM
         .insert(body)
         .then(project => {
-            res.status(201).json({ message: `${project.body.name} successfully added` })
+            res.status(201).json(project)
         })
         .catch(err => {
-            res.status(500).json({ errorMessage: 'could not add project' })
+            console.log(err)
+            res.status(500).json({ errorMessage: 'could not add project'  })
         })
 })
 
@@ -27,7 +28,7 @@ router.post('/:id/actions', validateProjectId, validateAction, (req, res) =>{
     aM
         .insert(body)
         .then(project => {
-            res.status(201).json({ message: `${body.name} added to ${project}` })
+            res.status(201).json(project)
         })
         .catch(err => {
             res.status(500).json({ errorMessage: 'could not add the action'})
@@ -75,6 +76,18 @@ router.put('/:id', validateProject, validateProjectId, (req, res) =>{
         })
         .catch(err => {
             res.status(500).json({ errorMessage: 'could not update project' })
+        })
+})
+
+//delete a project
+router.delete('/:id', validateProjectId, (req, res) =>{
+    const id = req.params.id;
+    pM.remove(id)
+        .then(() => {
+            res.status(200).json({ message: 'removed project' })
+        })
+        .catch(err => {
+            res.status(500).json({ errorMessage: {err} })
         })
 })
 
