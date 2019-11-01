@@ -26,7 +26,7 @@ function validateProjectId(req,res, next) {
 }
 
 //validate that the project has all required parts
-function ValidateProject(req, res, next) {
+function validateProject(req, res, next) {
     const name = req.name;
     const description = req.description;
 
@@ -37,7 +37,17 @@ function ValidateProject(req, res, next) {
             : next();
         }
 
-        
+//validate that the action has all required parts
+function  validateAction(req, res, next) {
+    const description = req.description;
+    const notes = req.notes;
+
+    !description
+        ? res.status(400).json({ errorMessage: 'description required' })
+        : !notes
+            ? res.status(400).json({ errorMessage: 'notes required' })
+            : next();
+        }       
 
 //export
 module.exports = router
